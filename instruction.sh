@@ -19,7 +19,6 @@ apt install wget
 apt install cron
 apt install nano
 # настраиваем расписание для запуска скрипта скачивания данных сайта
-crontab -e
 # выходим из контейнера
 exit
 # записываем новый образ
@@ -28,7 +27,8 @@ docker commit -m "Added wget, cron, nano and setted it" -a "Dmitriy Muravskiy" 6
 docker run -t -i -v $(pwd):/home dima/statmirror /bin/bash
 # можем построить образ на основе гитхаб проекта и разметить в докерхаб репозитории
 docker build -t muravskyds/dima/statmirror git@github.com:Dmurav/static-mirror.git
+# на основе докерфайла из каталога
+docker build -t statmirrorlast ~/Documents/DEVOPS/static_mirror/
 
-
-docker tag local-image:dima/statmirror new-repo:statmirror
+docker tag local-image:statmirror new-repo:statmirror
 docker push new-repo:statmirror
