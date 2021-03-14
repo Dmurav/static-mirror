@@ -30,5 +30,14 @@ docker build -t muravskyds/dima/statmirror git@github.com:Dmurav/static-mirror.g
 # на основе докерфайла из каталога
 docker build -t statmirrorlast ~/Documents/DEVOPS/static_mirror/
 
-docker tag local-image:statmirror new-repo:statmirror
-docker push new-repo:statmirror
+
+# построить образ на основе докерфайла
+docker build -t statmirror ~/Documents/DEVOPS/static_mirror/
+# запуск контейнера в интерактивном режиме с последующим удалением
+docker run --rm -t -i -v $(pwd):/home/mirror statmirror /bin/bash
+# выполнение команды в контейнере
+docker exec containerid "sh wget_mirror.sh"
+# запуск работающего контейнера в интерактивном режиме
+docker exec -it d9a313661091 bash
+# запук контейнера из образа в фоновом режиме с монтированием директории к директории на хосте
+docker run -d -v $(pwd):/home/mirror statmirror tail -f /dev/null
