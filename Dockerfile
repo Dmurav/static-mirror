@@ -1,4 +1,4 @@
-FROM dima/statmirror
+FROM muravskyds/statmirror
 LABEL maintainer="muravskydmitry@yandex.ru"
 # coздаём точку монтирования контейнера на хосте
 #VOLUME /home/dima/Documents/DEVOPS/static_mirror/
@@ -9,4 +9,4 @@ RUN echo wget --mirror -p --convert-links -P ./mirror https://www.chiark.greenen
 # выдаём скрипту права на исполнение
 RUN chmod +x ./wget_mirror.sh
 # запускаем скрипт
-CMD sh ./wget_mirror.sh tail -f /dev/null
+CMD sh ./wget_mirror.sh

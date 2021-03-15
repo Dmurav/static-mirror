@@ -8,6 +8,7 @@ systemctl enable docker
 systemctl start docker
 # добавляет docker в группу пользователей, что бы запускать без sudo
 sudo groupadd docker
+
 # создаём контейнер на основе ubuntu:18:04
 docker pull ubuntu:18.04
 # запускаем контейнер в интерактивном режиме с монтированием директории и переходим в нужную директорию
@@ -17,19 +18,21 @@ cd /home
 apt update && apt upgrade
 apt install wget
 apt install cron
-apt install nano
 # настраиваем расписание для запуска скрипта скачивания данных сайта
+echo 'echo 45 3 * * 6 sh ./wget_mirror.sh' > /etc/cron.d/task
 # выходим из контейнера
 exit
 # записываем новый образ
 docker commit -m "Added wget, cron, nano and setted it" -a "Dmitriy Muravskiy" 6c5b3d49ca26 dima/statmirror
+# заливаем на удалённый репозиторий dockerhub
+docker push muravskyds/statmirror
+
 # можем запустить новый контейнер
-docker run -t -i -v $(pwd):/home dima/statmirror /bin/bash
+docker run -t -i -v $(pwd):/home statmirror /bin/bash
 # можем построить образ на основе гитхаб проекта и разметить в докерхаб репозитории
 docker build -t muravskyds/dima/statmirror git@github.com:Dmurav/static-mirror.git
 # на основе докерфайла из каталога
 docker build -t statmirrorlast ~/Documents/DEVOPS/static_mirror/
-
 
 # построить образ на основе докерфайла
 docker build -t statmirror ~/Documents/DEVOPS/static_mirror/
