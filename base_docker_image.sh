@@ -30,7 +30,7 @@ docker push muravskyds/statmirror
 # можем запустить новый контейнер
 docker run -t -i -v $(pwd):/home statmirror /bin/bash
 # можем построить образ на основе гитхаб проекта и разметить в докерхаб репозитории
-docker build -t muravskyds/dima/statmirror git@github.com:Dmurav/static-mirror.git
+docker build -t muravskyds/statmirror2 git@github.com:Dmurav/static-mirror.git
 # на основе докерфайла из каталога
 docker build -t statmirrorlast ~/Documents/DEVOPS/static_mirror/
 
